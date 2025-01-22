@@ -66,16 +66,19 @@ public interface AZClient {
 
     <T> @NotNull CompletableFuture<T> executeInNetworkThread(@NotNull Callable<? extends T> task);
 
+    @NotNull
     AZNetworkContext getNetworkContext();
 
     boolean sendPacket(@NotNull PLSPPacket<PLSPPacketHandler.ClientHandler> packet);
 
+    @Deprecated
     default <
         Req extends PLSPPacket<PLSPPacketHandler.ClientHandler>, Res extends PLSPPacket<PLSPPacketHandler.ServerHandler>
     > @NotNull CompletableFuture<Res> sendQueryPacket(@NotNull Req packet, @NotNull Class<Res> responseClass) {
         return sendQueryPacket(packet, responseClass, null, null);
     }
 
+    @Deprecated
     default <
         Req extends PLSPPacket<PLSPPacketHandler.ClientHandler>, Res extends PLSPPacket<PLSPPacketHandler.ServerHandler>
     > @NotNull CompletableFuture<Res> sendQueryPacket(
@@ -86,6 +89,7 @@ public interface AZClient {
         return sendQueryPacket(packet, responseClass, responseMatcher, null);
     }
 
+    @Deprecated
     default <
         Req extends PLSPPacket<PLSPPacketHandler.ClientHandler>, Res extends PLSPPacket<PLSPPacketHandler.ServerHandler>
     > @NotNull CompletableFuture<Res> sendQueryPacket(
@@ -96,6 +100,7 @@ public interface AZClient {
         return sendQueryPacket(packet, responseClass, null, timeout);
     }
 
+    @Deprecated
     <
         Req extends PLSPPacket<PLSPPacketHandler.ClientHandler>, Res extends PLSPPacket<PLSPPacketHandler.ServerHandler>
     > @NotNull CompletableFuture<Res> sendQueryPacket(
@@ -105,22 +110,22 @@ public interface AZClient {
         @Nullable Duration timeout
     );
 
-    default boolean getConfFlag(String key) {
+    default boolean getConfFlag(@NotNull String key) {
         AZConstants.assertConfFlagExists(key);
-        return AZConstants.getDefaultConfFlag(key, getAZProtocolVersion());
+        return AZConstants.getDefaultConfFlag(key, getAZProtocolVersion(), getMCProtocolVersion());
     }
 
-    default int getConfInt(String key) {
+    default int getConfInt(@NotNull String key) {
         AZConstants.assertConfIntExists(key);
-        return AZConstants.getDefaultConfInt(key, getAZProtocolVersion());
+        return AZConstants.getDefaultConfInt(key, getAZProtocolVersion(), getMCProtocolVersion());
     }
 
-    default boolean setConfFlag(String key, boolean value) {
+    default boolean setConfFlag(@NotNull String key, boolean value) {
         AZConstants.assertConfFlagExists(key);
         throw new UnsupportedOperationException("setConfFlag is not supported on this platform");
     }
 
-    default boolean setConfInt(String key, int value) {
+    default boolean setConfInt(@NotNull String key, int value) {
         AZConstants.assertConfFlagExists(key);
         throw new UnsupportedOperationException("setConfInt is not supported on this platform");
     }
@@ -130,7 +135,6 @@ public interface AZClient {
     }
 
     default boolean setDisableAttackCooldown(boolean value) {
-        // TODO: Support this server-side
         return setConfFlag("attack_cooldown", !value);
     }
 

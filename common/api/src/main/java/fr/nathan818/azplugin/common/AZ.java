@@ -17,14 +17,15 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AZ {
 
+    static AZPlatform platform;
+
     @Contract(pure = true)
     public static @NotNull AZAPI api() {
         return platform().getAPI();
     }
 
-    static AZPlatform platform;
-
-    public static AZPlatform platform() {
+    @Contract(pure = true)
+    public static @NotNull AZPlatform platform() {
         AZPlatform ret = platform;
         if (ret == null) {
             throw new IllegalStateException("AZPlatform is not initialized yet");

@@ -16,6 +16,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @RequiredArgsConstructor
 public class ConfManager implements Listener {
@@ -41,7 +42,10 @@ public class ConfManager implements Listener {
             azPlayer.setSwordBlocking(CompatBridge.isSwordBlockingEnabled());
             azPlayer.setHitAndBlock(true);
             azPlayer.setLargeHitbox(true);
+            azPlayer.setPvpHitPriority(true);
             azPlayer.setDisablePlayerPush(true);
+            azPlayer.setServerSideAnvil(true);
+            azPlayer.setDisableSidebarScores(true);
             azPlayer.setChatMessageMaxSize(256);
         }
     }
@@ -66,18 +70,11 @@ public class ConfManager implements Listener {
         }
     }
 
-    private static int getChatMessageMaxSize(AZPlayer azPlayer) {
-        int ret;
+    private static int getChatMessageMaxSize(@Nullable AZPlayer azPlayer) {
         if (azPlayer == null) {
-            ret = compat().getDefaultChatMessageMaxSize();
-        } else if (azPlayer.hasAZLauncher()) {
-            ret = Math.max(0, azPlayer.getChatMessageMaxSize());
-        } else if (azPlayer.getMCProtocolVersion() >= 315) { // 315 = 1.11
-            ret = 256;
-        } else {
-            ret = 100;
+            return compat().getDefaultChatMessageMaxSize();
         }
-        return ret;
+        return Math.max(0, azPlayer.getChatMessageMaxSize());
     }
 
     private static boolean isAttackCooldownDisabled(@NotNull Entity entity) {
