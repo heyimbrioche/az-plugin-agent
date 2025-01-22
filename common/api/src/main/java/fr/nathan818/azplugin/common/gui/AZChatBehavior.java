@@ -1,7 +1,7 @@
 package fr.nathan818.azplugin.common.gui;
 
+import fr.nathan818.azplugin.common.AZColors;
 import fr.nathan818.azplugin.common.util.NotchianChatComponentLike;
-import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -10,7 +10,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import pactify.client.api.mcprotocol.model.NotchianChatComponent;
 import pactify.client.api.plsp.model.PLSPRegex;
 import pactify.client.api.plsp.model.SimplePLSPRegex;
@@ -22,27 +21,18 @@ import pactify.client.api.plsp.model.SimplePLSPRegex;
 @EqualsAndHashCode
 public final class AZChatBehavior {
 
-    private final @NonNull UUID id;
-    private final @Nullable PLSPRegex pattern;
-    private final @Nullable NotchianChatComponent message;
-    private final @Nullable @Getter(AccessLevel.NONE) String tagColor; // TODO(low): Use a color object?
+    private final @NonNull PLSPRegex pattern;
+    private final @NonNull NotchianChatComponent message;
+    private final int tagColorARGB;
     private final short priority;
 
-    public boolean isSet() {
-        return pattern != null;
-    }
-
-    public @Nullable String getSerializedTagColor() {
-        return tagColor;
-    }
-
-    public static AZChatBehavior remove(@NotNull UUID id) {
-        return new AZChatBehavior(id, null, null, null, (short) 0);
+    public @NotNull String getSerializedTagColor() {
+        return AZColors.toHexString(tagColorARGB);
     }
 
     public static class Builder {
 
-        public Builder pattern(@Nullable PLSPRegex pattern) {
+        public Builder pattern(@NotNull PLSPRegex pattern) {
             this.pattern = pattern;
             return this;
         }
@@ -57,14 +47,26 @@ public final class AZChatBehavior {
             return this;
         }
 
-        private Builder message(@Nullable NotchianChatComponent message) {
+        private Builder message(@NotNull NotchianChatComponent message) {
             this.message = message;
             return this;
         }
 
-        public Builder message(@Nullable NotchianChatComponentLike message) {
-            this.message = NotchianChatComponentLike.convert(message);
+        public Builder message(@NotNull NotchianChatComponentLike message) {
+            this.message = NotchianChatComponentLike.convertNonNull(message);
             return this;
+        }
+
+        public Builder tagColor(@NotNull String colorHex) {
+            return tagColorARGB(AZColors.parseHexString(colorHex));
+        }
+
+        public Builder tagColorRGB(int red, int green, int blue) {
+            return tagColorARGB(AZColors.ofRGB(red, green, blue));
+        }
+
+        public Builder tagColorRGB(int colorRGB) {
+            return tagColorARGB(AZColors.ofRGB(colorRGB));
         }
 
         public Builder priority(short priority) {
@@ -82,41 +84,6 @@ public final class AZChatBehavior {
             }
             this.priority = (short) priority;
             return this;
-        }
-
-        public Builder unset() {
-            this.pattern = null;
-            this.message = null;
-            this.tagColor = null;
-            this.priority = 0;
-            return this;
-        }
-
-        public AZChatBehavior build() {
-            int setCount = 0;
-            if (pattern != null) {
-                ++setCount;
-            }
-            if (message != null) {
-                ++setCount;
-            }
-            if (tagColor != null) {
-                ++setCount;
-            }
-            if (priority != 0) {
-                ++setCount;
-            }
-            if (setCount != 0 && setCount != 4) {
-                throw new IllegalArgumentException(
-                    "All fields must be set or unset" +
-                    (" (pattern: " + (pattern != null)) +
-                    (", message: " + (message != null)) +
-                    (", tagColor: " + (tagColor != null)) +
-                    (", priority: " + (priority != 0)) +
-                    ")"
-                );
-            }
-            return new AZChatBehavior(id, pattern, message, tagColor, priority);
         }
     }
 }

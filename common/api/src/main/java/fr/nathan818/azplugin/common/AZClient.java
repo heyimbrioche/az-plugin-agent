@@ -14,9 +14,12 @@ import fr.nathan818.azplugin.common.network.AZNetworkContext;
 import fr.nathan818.azplugin.common.util.NotchianChatComponentLike;
 import fr.nathan818.azplugin.common.util.NotchianItemStackLike;
 import java.time.Duration;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
@@ -301,14 +304,22 @@ public interface AZClient {
         throw new UnsupportedOperationException("setWorldEnv is not supported on this platform");
     }
 
-    default boolean setUiComponent(@NotNull AZUiComponent @NotNull... components) {
-        return setUiComponent(Arrays.asList(components));
+    default boolean setUiComponent(@NotNull AZUiComponent.Slot slot, @Nullable AZUiComponent component) {
+        return setUiComponents(Collections.singletonList(new SimpleEntry<>(slot, component)));
     }
 
-    default boolean setUiComponent(@NotNull Iterable<? extends AZUiComponent> components) {
+    default boolean setUiComponents(@NotNull Map<AZUiComponent.@NotNull Slot, @Nullable AZUiComponent> components) {
+        return setUiComponents(components.entrySet());
+    }
+
+    default boolean setUiComponents(
+        @NotNull Iterable<? extends @NotNull Entry<AZUiComponent.@NotNull Slot, @Nullable AZUiComponent>> components
+    ) {
         List<PLSPPacketUiComponent> packets = new ArrayList<>();
-        for (AZUiComponent component : components) {
-            packets.add(new PLSPPacketUiComponent(component.getSlot().getId(), component.getButton()));
+        for (Entry<AZUiComponent.Slot, AZUiComponent> e : components) {
+            AZUiComponent.Slot slot = e.getKey();
+            AZUiComponent component = e.getValue();
+            packets.add(new PLSPPacketUiComponent(slot.getId(), component == null ? null : component.getButton()));
         }
         switch (packets.size()) {
             case 0:
@@ -320,18 +331,26 @@ public interface AZClient {
         }
     }
 
-    default boolean setChatBehavior(@NotNull AZChatBehavior @NotNull... behaviors) {
-        return setChatBehavior(Arrays.asList(behaviors));
+    default boolean setChatBehavior(@NotNull UUID id, @Nullable AZChatBehavior behavior) {
+        return setChatBehaviors(Collections.singletonList(new SimpleEntry<>(id, behavior)));
     }
 
-    default boolean setChatBehavior(@NotNull Iterable<? extends AZChatBehavior> behaviors) {
+    default boolean setChatBehaviors(@NotNull Map<@NotNull UUID, @Nullable AZChatBehavior> behaviors) {
+        return setChatBehaviors(behaviors.entrySet());
+    }
+
+    default boolean setChatBehaviors(
+        @NotNull Iterable<? extends @NotNull Entry<@NotNull UUID, @Nullable AZChatBehavior>> behaviors
+    ) {
         List<PLSPPacketChatBehavior> packets = new ArrayList<>();
-        for (AZChatBehavior behavior : behaviors) {
-            if (behavior.isSet()) {
+        for (Entry<UUID, AZChatBehavior> e : behaviors) {
+            UUID id = e.getKey();
+            AZChatBehavior behavior = e.getValue();
+            if (behavior != null) {
                 packets.add(
                     new PLSPPacketChatBehavior(
                         PLSPPacketChatBehavior.Action.ADD,
-                        behavior.getId(),
+                        id,
                         behavior.getPattern(),
                         behavior.getMessage(),
                         behavior.getSerializedTagColor(),
@@ -339,7 +358,7 @@ public interface AZClient {
                     )
                 );
             } else {
-                packets.add(new PLSPPacketChatBehavior(PLSPPacketChatBehavior.Action.REMOVE, behavior.getId()));
+                packets.add(new PLSPPacketChatBehavior(PLSPPacketChatBehavior.Action.REMOVE, id));
             }
         }
         switch (packets.size()) {

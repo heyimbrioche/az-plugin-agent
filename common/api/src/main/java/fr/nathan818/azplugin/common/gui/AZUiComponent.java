@@ -9,7 +9,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import pactify.client.api.mcprotocol.model.NotchianChatComponent;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -19,26 +18,21 @@ import pactify.client.api.mcprotocol.model.NotchianChatComponent;
 @EqualsAndHashCode
 public final class AZUiComponent {
 
-    private final @NonNull Slot slot;
-    private final @Nullable NotchianChatComponent button;
+    private final @NonNull NotchianChatComponent button;
 
-    public static AZUiComponent build(@NotNull Slot slot, @Nullable NotchianChatComponentLike button) {
-        return new AZUiComponent(slot, NotchianChatComponentLike.convert(button));
-    }
-
-    public static AZUiComponent reset(@NotNull Slot slot) {
-        return new AZUiComponent(slot, null);
+    public static AZUiComponent build(@NotNull NotchianChatComponentLike button) {
+        return new AZUiComponent(NotchianChatComponentLike.convertNonNull(button));
     }
 
     public static class Builder {
 
-        private Builder button(@Nullable NotchianChatComponent button) {
+        private Builder button(@NotNull NotchianChatComponent button) {
             this.button = button;
             return this;
         }
 
-        public Builder button(@Nullable NotchianChatComponentLike button) {
-            this.button = NotchianChatComponentLike.convert(button);
+        public Builder button(@NotNull NotchianChatComponentLike button) {
+            this.button = NotchianChatComponentLike.convertNonNull(button);
             return this;
         }
     }
