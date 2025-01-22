@@ -1,7 +1,7 @@
 package fr.nathan818.azplugin.bukkit.chat;
 
 import fr.nathan818.azplugin.common.AZConstants;
-import fr.nathan818.azplugin.common.chat.NotchianChatComponentLike;
+import fr.nathan818.azplugin.common.util.NotchianChatComponentLike;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import lombok.NonNull;

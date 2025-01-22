@@ -1,4 +1,4 @@
-package fr.nathan818.azplugin.common.nbt;
+package fr.nathan818.azplugin.common.util;
 
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;

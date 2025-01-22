@@ -1,7 +1,7 @@
 package fr.nathan818.azplugin.bukkit.item;
 
 import fr.nathan818.azplugin.bukkit.AZBukkit;
-import fr.nathan818.azplugin.common.item.NotchianItemStackLike;
+import fr.nathan818.azplugin.common.util.NotchianItemStackLike;
 import java.util.Objects;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;

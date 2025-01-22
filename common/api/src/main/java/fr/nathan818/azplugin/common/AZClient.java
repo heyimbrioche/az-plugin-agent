@@ -1,18 +1,18 @@
 package fr.nathan818.azplugin.common;
 
-import static fr.nathan818.azplugin.common.chat.NotchianChatComponentLike.convertNonNull;
-import static fr.nathan818.azplugin.common.item.NotchianItemStackLike.convertNonNull;
+import static fr.nathan818.azplugin.common.util.NotchianChatComponentLike.convertNonNull;
+import static fr.nathan818.azplugin.common.util.NotchianItemStackLike.convertNonNull;
 
 import fr.nathan818.azplugin.common.appearance.AZWorldEnv;
-import fr.nathan818.azplugin.common.chat.NotchianChatComponentLike;
 import fr.nathan818.azplugin.common.gui.AZChatBehavior;
 import fr.nathan818.azplugin.common.gui.AZPopupAlert;
 import fr.nathan818.azplugin.common.gui.AZPopupConfirm;
 import fr.nathan818.azplugin.common.gui.AZPopupPrompt;
 import fr.nathan818.azplugin.common.gui.AZUiComponent;
 import fr.nathan818.azplugin.common.gui.AZVignette;
-import fr.nathan818.azplugin.common.item.NotchianItemStackLike;
 import fr.nathan818.azplugin.common.network.AZNetworkContext;
+import fr.nathan818.azplugin.common.util.NotchianChatComponentLike;
+import fr.nathan818.azplugin.common.util.NotchianItemStackLike;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;

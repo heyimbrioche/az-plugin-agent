@@ -1,7 +1,7 @@
 package fr.nathan818.azplugin.common.appearance;
 
-import fr.nathan818.azplugin.common.chat.NotchianChatComponentLike;
-import fr.nathan818.azplugin.common.item.NotchianItemStackLike;
+import fr.nathan818.azplugin.common.util.NotchianChatComponentLike;
+import fr.nathan818.azplugin.common.util.NotchianItemStackLike;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;

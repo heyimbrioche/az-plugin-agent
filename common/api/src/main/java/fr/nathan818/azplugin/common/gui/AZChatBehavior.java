@@ -1,6 +1,6 @@
 package fr.nathan818.azplugin.common.gui;
 
-import fr.nathan818.azplugin.common.chat.NotchianChatComponentLike;
+import fr.nathan818.azplugin.common.util.NotchianChatComponentLike;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Builder;
