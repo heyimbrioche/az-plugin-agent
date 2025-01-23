@@ -9,6 +9,11 @@ import lombok.ToString;
 import org.jetbrains.annotations.Nullable;
 import pactify.client.api.mcprotocol.model.NotchianNbtTagCompound;
 
+/**
+ * A model configuration for an entity.
+ * <p>
+ * The configuration changes the entity model. This does not affect the bounding box (a.k.a. hitbox).
+ */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(builderClassName = "Builder", toBuilder = true)
 @Getter
@@ -16,23 +21,83 @@ import pactify.client.api.mcprotocol.model.NotchianNbtTagCompound;
 @EqualsAndHashCode
 public final class AZEntityModel {
 
-    @lombok.Builder.Default
-    private final int modelId = 3072; // Minecraft 1.9.4 entity ID, or 3072 for "self"
+    /**
+     * The default entity model.
+     *
+     * @see #getModelId()
+     */
+    public static final int MODEL_SELF = 3072;
 
+    /**
+     * A player model.
+     *
+     * @see #getModelId()
+     */
+    public static final int MODEL_PLAYER = 3073;
+
+    /**
+     * The model ID to use.
+     * <p>
+     * Known values are:
+     * <ul>
+     * <li>{@link #MODEL_SELF} for default entity model;</li>
+     * <li>{@link #MODEL_PLAYER} for a player model;</li>
+     * <li>A Minecraft 1.9.4 entity type ID (e.g., {@code 57} for pig).</li>
+     * </ul>
+     */
+    @lombok.Builder.Default
+    private final int modelId = MODEL_SELF;
+
+    /**
+     * Custom metadata to apply to the model.
+     */
+    // TODO(doc): Add a link to the model metadata wiki page.
     private final @Nullable NotchianNbtTagCompound metadata;
+
+    /**
+     * The render offset, on the X axis.
+     */
     private final float offsetX;
+
+    /**
+     * The render offset, on the Y axis.
+     */
     private final float offsetY;
+
+    /**
+     * The render offset, on the Z axis.
+     */
     private final float offsetZ;
 
+    /**
+     * The eye height when standing.
+     * <p>
+     * If NaN, the default entity eye height is used.
+     */
     @lombok.Builder.Default
     private final float eyeHeightStand = Float.NaN;
 
+    /**
+     * The eye height when sneaking.
+     * <p>
+     * If NaN, the default entity eye height is used.
+     */
     @lombok.Builder.Default
     private final float eyeHeightSneak = Float.NaN;
 
+    /**
+     * The eye height when sleeping.
+     * <p>
+     * If NaN, the default entity eye height is used.
+     */
     @lombok.Builder.Default
     private final float eyeHeightSleep = Float.NaN;
 
+    /**
+     * The eye height when using an elytra.
+     * <p>
+     * If NaN, the default entity eye height is used.
+     */
     @lombok.Builder.Default
     private final float eyeHeightElytra = Float.NaN;
 

@@ -9,6 +9,11 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Called when an entity name tag was changed.
+ *
+ * @see AZEntity#setNameTag(AZNameTag.Slot, AZNameTag)
+ */
 @Getter
 public class AZEntityNameTagChangedEvent extends AZEntityEvent {
 

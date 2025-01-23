@@ -7,6 +7,11 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Called when an entity opacity was changed.
+ *
+ * @see AZEntity#setOpacity(Float)
+ */
 @Getter
 public class AZEntityOpacityChangedEvent extends AZEntityEvent {
 

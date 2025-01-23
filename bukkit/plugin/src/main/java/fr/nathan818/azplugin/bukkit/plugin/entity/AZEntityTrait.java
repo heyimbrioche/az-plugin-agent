@@ -45,7 +45,7 @@ public abstract class AZEntityTrait implements AZEntity {
     protected abstract @Nullable Player getBukkitPlayer();
 
     @Override
-    public Iterable<? extends Player> getViewers(boolean includeSelf) {
+    public @NotNull Iterable<? extends Player> getViewers(boolean includeSelf) {
         AZBukkit.platform().assertSync(this, "getViewers");
         Player bukkitPlayer;
         if (includeSelf && (bukkitPlayer = getBukkitPlayer()) != null) {
@@ -59,7 +59,7 @@ public abstract class AZEntityTrait implements AZEntity {
     }
 
     @Override
-    public Iterable<? extends @NotNull Player> getViewers(
+    public @NotNull Iterable<? extends @NotNull Player> getViewers(
         boolean includeSelf,
         @NotNull Predicate<? super Player> filter
     ) {

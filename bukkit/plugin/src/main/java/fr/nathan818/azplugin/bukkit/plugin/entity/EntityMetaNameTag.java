@@ -18,7 +18,7 @@ final class EntityMetaNameTag extends EntityMeta<AZNameTag, PactifyTagMetadata, 
 
     @Override
     public boolean isDefault(@Nullable AZNameTag value) {
-        return value == null || value.isEmpty();
+        return value == null || value.isNull();
     }
 
     @Override

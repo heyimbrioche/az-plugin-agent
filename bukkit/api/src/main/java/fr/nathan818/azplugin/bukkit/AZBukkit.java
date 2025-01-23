@@ -3,6 +3,8 @@ package fr.nathan818.azplugin.bukkit;
 import fr.nathan818.azplugin.common.AZ;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Access point to Bukkit AZPlugin singletons.
@@ -12,13 +14,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AZBukkit {
 
-    public static AZBukkitAPI api() {
+    private static AZBukkitPlatform platform;
+
+    /**
+     * Returns the API instance for Bukkit.
+     *
+     * @return the API instance
+     * @throws IllegalStateException if the platform is not initialized yet
+     * @az.async-safe
+     */
+    @Contract(pure = true)
+    public static @NotNull AZBukkitAPI api() {
         return platform().getAPI();
     }
 
-    private static AZBukkitPlatform platform;
-
-    public static AZBukkitPlatform platform() {
+    /**
+     * Returns the current platform instance.
+     *
+     * @return the current platform instance
+     * @throws IllegalStateException if the platform is not initialized yet
+     * @az.low-level {@link AZBukkit#api()}
+     * @az.async-safe
+     */
+    @Contract(pure = true)
+    public static @NotNull AZBukkitPlatform platform() {
         AZBukkitPlatform ret = platform;
         if (ret == null) {
             throw new IllegalStateException("AZBukkitPlatform is not initialized yet");

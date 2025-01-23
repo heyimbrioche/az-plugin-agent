@@ -5,6 +5,9 @@ import lombok.Getter;
 import org.bukkit.event.player.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents an {@link AZPlayer} related event.
+ */
 @Getter
 public abstract class AZPlayerEvent extends PlayerEvent {
 

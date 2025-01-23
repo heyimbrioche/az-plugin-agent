@@ -15,6 +15,7 @@
   <artifactId>az-plugin-common-utils</artifactId>
 
   <properties>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
     <scriptus.scmDirectory>../../</scriptus.scmDirectory>
   </properties>
 

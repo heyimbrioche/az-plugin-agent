@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import pactify.client.api.mcprotocol.NotchianPacketBuffer;
 
+/**
+ * A DataInput implementation that reads data from a {@link NotchianPacketBuffer}.
+ */
 @RequiredArgsConstructor
 public final class NotchianPacketBufferDataInput implements DataInput {
 

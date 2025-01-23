@@ -24,6 +24,7 @@
   </modules>
 
   <properties>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
     <scriptus.scmDirectory>../</scriptus.scmDirectory>
 
     <spigot.generic-version>1.8-R0.1-SNAPSHOT</spigot.generic-version>

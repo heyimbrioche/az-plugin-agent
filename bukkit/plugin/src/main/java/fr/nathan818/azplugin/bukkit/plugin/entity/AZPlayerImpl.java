@@ -136,7 +136,7 @@ public class AZPlayerImpl extends AZClientAbstract implements AZPlayer {
     }
 
     @Override
-    public Entity getBukkitEntity() {
+    public @NotNull Player getBukkitEntity() {
         return bukkitPlayer;
     }
 
@@ -249,6 +249,7 @@ public class AZPlayerImpl extends AZClientAbstract implements AZPlayer {
 
     @Override
     public InventoryView openMenuInventory(@NotNull Inventory inventory) {
+        AZBukkit.platform().assertSync(this, "openMenuInventory");
         compat().setNextWindowId(bukkitPlayer, nextMenuWindowId());
         try {
             return bukkitPlayer.openInventory(inventory);
@@ -259,6 +260,7 @@ public class AZPlayerImpl extends AZClientAbstract implements AZPlayer {
 
     @Override
     public void openMenuInventory(@NotNull InventoryView inventory) {
+        AZBukkit.platform().assertSync(this, "openMenuInventory");
         compat().setNextWindowId(bukkitPlayer, nextMenuWindowId());
         try {
             bukkitPlayer.openInventory(inventory);
@@ -269,6 +271,7 @@ public class AZPlayerImpl extends AZClientAbstract implements AZPlayer {
 
     @Override
     public void closeInventory() {
+        AZBukkit.platform().assertSync(this, "closeInventory");
         Player bukkitPlayer = getBukkitPlayer();
         int windowId;
         if (
@@ -323,6 +326,7 @@ public class AZPlayerImpl extends AZClientAbstract implements AZPlayer {
 
     @Override
     public @Nullable AZNetworkValue<AZCosmeticEquipment> getCosmeticEquipment(@NotNull AZCosmeticEquipment.Slot slot) {
+        // Note: EnumMap.get is fully thread-safe
         EntityMetaCosmeticEquipment cosmeticEquipmentMeta = cosmeticEquipmentsMeta.get(slot);
         return cosmeticEquipmentMeta == null ? null : cosmeticEquipmentMeta.get();
     }
@@ -397,7 +401,7 @@ public class AZPlayerImpl extends AZClientAbstract implements AZPlayer {
             }
 
             @Override
-            public Entity getBukkitEntity() {
+            public @NotNull Entity getBukkitEntity() {
                 return bukkitPlayer;
             }
 

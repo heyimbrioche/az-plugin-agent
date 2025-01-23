@@ -104,7 +104,7 @@ public class AZPlugin extends JavaPlugin implements AZBukkitPlatform {
 
     @Override
     public void writeNotchianItemStack(@NotNull AZPacketBuffer buf, @Nullable NotchianItemStack itemStack) {
-        compat().writeItemStack(buf, AZBukkitItemStack.mirrorBukkitItemStack(NotchianItemStackLike.of(itemStack)));
+        compat().writeItemStack(buf, AZBukkitItemStack.mirrorBukkitItemStack(NotchianItemStackLike.box(itemStack)));
     }
 
     @Override

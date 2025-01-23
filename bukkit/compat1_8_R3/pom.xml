@@ -15,6 +15,7 @@
   <artifactId>az-plugin-bukkit-compat1_8_R3</artifactId>
 
   <properties>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
     <scriptus.scmDirectory>../../</scriptus.scmDirectory>
 
     <spigot1_8_R3.version>1.8.8-R0.1-SNAPSHOT</spigot1_8_R3.version>

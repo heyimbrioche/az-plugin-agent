@@ -71,7 +71,7 @@ public abstract class AZClientAbstract implements AZClient {
         .listener(this::onVignetteChanged)
         .build();
     private final ClientValue<AZWorldEnv> worldEnv = ClientValue.<AZWorldEnv>builder(this)
-        .mapper(v -> v == null || v.isEmpty() ? null : v)
+        .mapper(v -> v == null || v.isNull() ? null : v)
         .packetFactory(v ->
             (v == null)
                 ? new PLSPPacketWorldEnv("", "default")

@@ -6,6 +6,11 @@ import lombok.Getter;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Called when a player vignette was changed.
+ *
+ * @see AZPlayer#setVignette(AZVignette)
+ */
 @Getter
 public class AZPlayerVignetteChangedEvent extends AZPlayerEvent {
 

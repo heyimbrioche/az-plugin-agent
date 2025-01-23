@@ -9,6 +9,11 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Called when player cosmetic equipment was changed.
+ *
+ * @see AZPlayer#setCosmeticEquipment(AZCosmeticEquipment.Slot, AZCosmeticEquipment)
+ */
 @Getter
 public class AZPlayerCosmeticEquipmentChangedEvent extends AZPlayerEvent {
 

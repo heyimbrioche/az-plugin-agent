@@ -6,6 +6,11 @@ import lombok.NonNull;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Called when a player configuration integer was changed.
+ *
+ * @see AZPlayer#setConfInt(String, int)
+ */
 @Getter
 public class AZPlayerConfIntChangedEvent extends AZPlayerEvent {
 

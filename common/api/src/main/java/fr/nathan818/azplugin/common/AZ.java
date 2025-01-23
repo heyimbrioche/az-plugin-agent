@@ -8,22 +8,36 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Access point to common (platform-independent) AZPlugin singletons.
  * <p>
- * <b>IMPORTANT:</b> If you use Bukkit/Spigot, look at {@link fr.nathan818.azplugin.bukkit.AZBukkit}
- * instead.
+ * <b>IMPORTANT:</b> If you use Bukkit/Spigot, look at {@code AZBukkit} instead.
  *
  * @see AZAPI
  */
-@SuppressWarnings({ "JavadocReference", "rawtypes" })
+@SuppressWarnings({ "rawtypes" })
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AZ {
 
     static AZPlatform platform;
 
+    /**
+     * Returns the API instance for the current platform.
+     *
+     * @return the API instance
+     * @throws IllegalStateException if the platform is not initialized yet
+     * @az.async-safe
+     */
     @Contract(pure = true)
     public static @NotNull AZAPI api() {
         return platform().getAPI();
     }
 
+    /**
+     * Returns the current platform instance.
+     *
+     * @return the current platform instance
+     * @throws IllegalStateException if the platform is not initialized yet
+     * @az.low-level {@link AZ#api()}
+     * @az.async-safe
+     */
     @Contract(pure = true)
     public static @NotNull AZPlatform platform() {
         AZPlatform ret = platform;

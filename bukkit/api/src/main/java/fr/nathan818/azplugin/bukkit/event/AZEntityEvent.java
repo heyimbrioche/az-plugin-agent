@@ -5,6 +5,9 @@ import lombok.Getter;
 import org.bukkit.event.entity.EntityEvent;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Represents an {@link AZEntity} related event.
+ */
 @Getter
 public abstract class AZEntityEvent extends EntityEvent {
 

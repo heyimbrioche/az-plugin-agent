@@ -8,6 +8,11 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Called when an entity model was changed.
+ *
+ * @see AZEntity#setModel(AZEntityModel)
+ */
 @Getter
 public class AZEntityModelChangedEvent extends AZEntityEvent {
 

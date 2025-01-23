@@ -6,6 +6,11 @@ import lombok.Getter;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Called when a player world environment was changed.
+ *
+ * @see AZPlayer#setWorldEnv(AZWorldEnv)
+ */
 @Getter
 public class AZPlayerWorldEnvChangedEvent extends AZPlayerEvent {
 

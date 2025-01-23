@@ -15,6 +15,7 @@
   <artifactId>az-plugin-bukkit-compat</artifactId>
 
   <properties>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
     <scriptus.scmDirectory>../../</scriptus.scmDirectory>
 
     <netty.generic-version>4.1.116.Final</netty.generic-version>

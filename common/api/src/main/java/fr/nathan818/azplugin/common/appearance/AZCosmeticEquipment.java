@@ -20,6 +20,11 @@ import pactify.client.api.mcprotocol.model.NotchianChatComponent;
 import pactify.client.api.mcprotocol.model.NotchianItemStack;
 import pactify.client.api.plprotocol.model.cosmetic.PactifyCosmeticEquipment.ItemPattern;
 
+/**
+ * A cosmetic equipment.
+ * <p>
+ * Cosmetic equipments are additional inventory items that override the appearance of the player's equipment.
+ */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(builderClassName = "Builder", toBuilder = true)
 @Getter
@@ -27,14 +32,57 @@ import pactify.client.api.plprotocol.model.cosmetic.PactifyCosmeticEquipment.Ite
 @EqualsAndHashCode
 public final class AZCosmeticEquipment {
 
+    /**
+     * The item stack inside the slot.
+     * <p>
+     * If null, the slot is considered empty (no item inside).
+     */
     private final @Nullable NotchianItemStack item;
 
+    /**
+     * The matching condition to override the real equipment when rendering the player.
+     * <p>
+     * This pattern is checked against the real equipment item. If it matches, the real item is ignored and this item is
+     * used instead.
+     */
     @lombok.Builder.Default
     private final @NonNull MatchPattern matchPattern = MatchPattern.ANY;
 
+    /**
+     * Whether the item should be hidden in the inventory slot.
+     */
     private final boolean hideInInventory;
+
+    /**
+     * The message prepended to the slot tooltip (shown when hovering the slot in the inventory).
+     * <p>
+     * If null, nothing is prepended.
+     * <p>
+     * The root component ClickEvent will be triggered when clicking the slot.
+     */
     private final @Nullable NotchianChatComponent tooltipPrefix;
+
+    /**
+     * The message appended to the slot tooltip (shown when hovering the slot in the inventory).
+     * <p>
+     * If null, nothing is appended.
+     */
     private final @Nullable NotchianChatComponent tooltipSuffix;
+
+    /**
+     * The symbol displayed in the inventory slot when empty.
+     * <p>
+     * If null, the default symbol is used:
+     * <ul>
+     * <li>{@link Symbol#SWORD} for the main hand</li>
+     * <li>{@link Symbol#BOOTS} for the feet</li>
+     * <li>{@link Symbol#LEGGINGS} for the legs</li>
+     * <li>{@link Symbol#CHESTPLATE} for the chest</li>
+     * <li>{@link Symbol#HEAD} for the head</li>
+     * <li>{@link Symbol#SHIELD} for the second hand</li>
+     * <li>{@link Symbol#SPIRAL} for the custom slots</li>
+     * </ul>
+     */
     private final @Nullable Symbol symbol;
 
     public static class Builder {
@@ -45,7 +93,7 @@ public final class AZCosmeticEquipment {
         }
 
         public Builder item(@Nullable NotchianItemStackLike item) {
-            this.item = NotchianItemStackLike.convert(item);
+            this.item = NotchianItemStackLike.unbox(item);
             return this;
         }
 
@@ -55,7 +103,7 @@ public final class AZCosmeticEquipment {
         }
 
         public Builder tooltipPrefix(@Nullable NotchianChatComponentLike tooltipPrefix) {
-            this.tooltipPrefix = NotchianChatComponentLike.convert(tooltipPrefix);
+            this.tooltipPrefix = NotchianChatComponentLike.unbox(tooltipPrefix);
             return this;
         }
 
@@ -65,20 +113,40 @@ public final class AZCosmeticEquipment {
         }
 
         public Builder tooltipSuffix(@Nullable NotchianChatComponentLike tooltipSuffix) {
-            this.tooltipSuffix = NotchianChatComponentLike.convert(tooltipSuffix);
+            this.tooltipSuffix = NotchianChatComponentLike.unbox(tooltipSuffix);
             return this;
         }
     }
 
+    /**
+     * A pattern to match an equipment slot.
+     *
+     * @see AZCosmeticEquipment#getMatchPattern()
+     */
     @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
     @EqualsAndHashCode(callSuper = false)
     @Getter
     @ToString
     public static final class MatchPattern {
 
+        /**
+         * A pattern never matching any slot.
+         */
         public static MatchPattern NONE = MatchPattern.builder().build();
+
+        /**
+         * A pattern matching any slot (empty or not).
+         */
         public static MatchPattern ANY = MatchPattern.builder().add(MatchFlag.ANY).build();
+
+        /**
+         * A pattern matching empty slots.
+         */
         public static MatchPattern EMPTY = MatchPattern.builder().add(MatchFlag.EMPTY).build();
+
+        /**
+         * A pattern matching non-empty slots.
+         */
         public static MatchPattern NOT_EMPTY = MatchPattern.builder().add(MatchFlag.NOT_EMPTY).build();
 
         public static MatchPatternBuilder builder() {
@@ -99,7 +167,7 @@ public final class AZCosmeticEquipment {
             if (patterns == null) {
                 return true;
             }
-            NotchianItemStack itemStack = NotchianItemStackLike.convert(item);
+            NotchianItemStack itemStack = NotchianItemStackLike.unbox(item);
             for (ItemPattern pattern : patterns) {
                 if (isMatching(itemStack, pattern)) {
                     return true;
@@ -214,30 +282,88 @@ public final class AZCosmeticEquipment {
         MatchPattern build();
     }
 
+    /**
+     * Matching flags for equipment slots.
+     */
     public enum MatchFlag {
+        /**
+         * Matches any slot (empty or not).
+         */
         ANY,
+
+        /**
+         * Matches an empty slot.
+         */
         EMPTY,
+
+        /**
+         * Matches a non-empty slot.
+         */
         NOT_EMPTY,
 
+        /**
+         * Matches a slot containing a shovel.
+         */
         SHOVEL,
+
+        /**
+         * Matches a slot containing a pickaxe.
+         */
         PICKAXE,
+
+        /**
+         * Matches a slot containing an axe.
+         */
         AXE,
+
+        /**
+         * Matches a slot containing a sword.
+         */
         SWORD,
+
+        /**
+         * Matches a slot containing a hoe.
+         */
         HOE,
 
+        /**
+         * Matches a slot containing a helmet.
+         */
         HELMET,
+
+        /**
+         * Matches a slot containing a chestplate.
+         */
         CHESTPLATE,
+
+        /**
+         * Matches a slot containing leggings.
+         */
         LEGGINGS,
+
+        /**
+         * Matches a slot containing boots.
+         */
         BOOTS;
 
+        /**
+         * A set containing all the tool flags (shovel, pickaxe, axe, sword, hoe).
+         */
         public static final Set<MatchFlag> TOOL = Collections.unmodifiableSet(
             EnumSet.of(MatchFlag.SHOVEL, MatchFlag.PICKAXE, MatchFlag.AXE, MatchFlag.SWORD, MatchFlag.HOE)
         );
+
+        /**
+         * A set containing all the armor flags (helmet, chestplate, leggings, boots).
+         */
         public static final Set<MatchFlag> ARMOR = Collections.unmodifiableSet(
             EnumSet.of(MatchFlag.HELMET, MatchFlag.CHESTPLATE, MatchFlag.LEGGINGS, MatchFlag.BOOTS)
         );
     }
 
+    /**
+     * Cosmetic equipment slots.
+     */
     @RequiredArgsConstructor
     @Getter
     public enum Slot {
@@ -263,6 +389,9 @@ public final class AZCosmeticEquipment {
         private final boolean vanilla;
     }
 
+    /**
+     * Placeholder symbols for empty cosmetic equipment slots.
+     */
     @RequiredArgsConstructor
     @Getter
     public enum Symbol {

@@ -15,6 +15,7 @@
   <artifactId>az-plugin-bukkit</artifactId>
 
   <properties>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
     <scriptus.scmDirectory>../../</scriptus.scmDirectory>
   </properties>
 

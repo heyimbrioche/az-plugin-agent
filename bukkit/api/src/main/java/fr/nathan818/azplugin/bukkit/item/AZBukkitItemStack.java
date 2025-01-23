@@ -10,7 +10,16 @@ import org.jetbrains.annotations.Nullable;
 import pactify.client.api.mcprotocol.model.NotchianItemStack;
 import pactify.client.api.mcprotocol.model.NotchianNbtTagCompound;
 
+/**
+ * Bukkit implementation for {@link NotchianItemStack}.
+ */
 public interface AZBukkitItemStack extends NotchianItemStack, NotchianItemStackLike {
+    /**
+     * Wraps a copy of the given item stack into an {@link AZBukkitItemStack}.
+     *
+     * @param itemStack the item stack to copy and wrap
+     * @return the wrapped item stack, or null if the given item stack is null
+     */
     @Contract("null -> null; !null -> new")
     static @Nullable AZBukkitItemStack copyOf(@Nullable ItemStack itemStack) {
         if (itemStack == null) {
@@ -19,6 +28,15 @@ public interface AZBukkitItemStack extends NotchianItemStack, NotchianItemStackL
         return new AZBukkitItemStackImpl(AZBukkit.platform().asCraftCopy(itemStack));
     }
 
+    /**
+     * Wraps the given item stack into an {@link AZBukkitItemStack}.
+     * <p>
+     * The given item stack is not copied, but directly wrapped. Any changes to the given item stack will be reflected.
+     * This may be unsafe depending on the usage. If you are not sure, use {@link #copyOf(ItemStack)} instead.
+     *
+     * @param itemStack the item stack to wrap
+     * @return the wrapped item stack, or null if the given item stack is null
+     */
     @Contract("null -> null; !null -> new")
     static @Nullable AZBukkitItemStack mirrorOf(@Nullable ItemStack itemStack) {
         if (itemStack == null) {
@@ -27,9 +45,18 @@ public interface AZBukkitItemStack extends NotchianItemStack, NotchianItemStackL
         return new AZBukkitItemStackImpl(itemStack);
     }
 
+    /**
+     * Unwraps the given {@link AZBukkitItemStack} into a {@link ItemStack}.
+     * <p>
+     * If the given item stack is an instance of {@link AZBukkitItemStack}, the underlying {@link ItemStack} is
+     * returned. Otherwise, a new item stack is created.
+     *
+     * @param notchianItemStack the item stack to unwrap
+     * @return the unwrapped item stack, or null if the given item stack is null
+     */
     @Contract("null -> null; !null -> _")
     static @Nullable ItemStack mirrorBukkitItemStack(@Nullable NotchianItemStackLike notchianItemStack) {
-        NotchianItemStack that = NotchianItemStackLike.convert(notchianItemStack);
+        NotchianItemStack that = NotchianItemStackLike.unbox(notchianItemStack);
         if (that == null) {
             return null;
         }
@@ -39,6 +66,11 @@ public interface AZBukkitItemStack extends NotchianItemStack, NotchianItemStackL
         return AZBukkit.platform().createItemStack(that.getItemId(), that.getCount(), that.getDamage(), that.getTag());
     }
 
+    /**
+     * Gets the bukkit item stack wrapped by this instance.
+     *
+     * @return the bukkit item stack
+     */
     @NotNull
     ItemStack getBukkitItemStack();
 

@@ -15,6 +15,7 @@
   <artifactId>az-plugin-bungee-patch</artifactId>
 
   <properties>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
     <scriptus.scmDirectory>../../</scriptus.scmDirectory>
 
     <bungeecord-api.version>1.21-R0.1-SNAPSHOT</bungeecord-api.version>

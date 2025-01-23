@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import pactify.client.api.mcprotocol.NotchianPacketBuffer;
 
+/**
+ * A DataOutput implementation that writes data to a {@link NotchianPacketBuffer}.
+ */
 @RequiredArgsConstructor
 public final class NotchianPacketBufferDataOutput implements DataOutput {
 

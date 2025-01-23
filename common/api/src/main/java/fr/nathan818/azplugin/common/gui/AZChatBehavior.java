@@ -1,7 +1,10 @@
 package fr.nathan818.azplugin.common.gui;
 
+import fr.nathan818.azplugin.common.AZClient;
 import fr.nathan818.azplugin.common.AZColors;
 import fr.nathan818.azplugin.common.util.NotchianChatComponentLike;
+import java.util.Map;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -14,6 +17,20 @@ import pactify.client.api.mcprotocol.model.NotchianChatComponent;
 import pactify.client.api.plsp.model.PLSPRegex;
 import pactify.client.api.plsp.model.SimplePLSPRegex;
 
+/**
+ * Hint for using personalized chat behaviors.
+ * <p>
+ * The chat behaviors are checked when the player types a message in the chat. All behaviors are checked in order of
+ * priority and the first one that matches is selected.
+ * <p>
+ * When a behavior is selected, it's message is displayed above the chat input, and the "tag"-part is highlighted with a
+ * specific color.
+ *
+ * @see AZClient#setChatBehavior(UUID, AZChatBehavior)
+ * @see AZClient#setChatBehaviors(Map)
+ * @see AZClient#setChatBehaviors(Iterable)
+ * @see AZClient#removeChatBehaviors()
+ */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(builderClassName = "Builder", toBuilder = true)
 @Getter
@@ -21,9 +38,31 @@ import pactify.client.api.plsp.model.SimplePLSPRegex;
 @EqualsAndHashCode
 public final class AZChatBehavior {
 
+    /**
+     * The pattern to detect the personalized chat behavior.
+     * <p>
+     * Match group 1 identifies the "tag"-part of the message, and is colored with the
+     * {@linkplain #getTagColorARGB() tag color}.
+     */
     private final @NonNull PLSPRegex pattern;
+
+    /**
+     * The hint message displayed above the chat input when the pattern is detected.
+     * <p>
+     * All match groups can be used in the message (using {@code $1}, {@code $2}, etc.).
+     */
     private final @NonNull NotchianChatComponent message;
+
+    /**
+     * The color of the "tag" part of the message.
+     */
     private final int tagColorARGB;
+
+    /**
+     * The priority of the chat behavior.
+     * <p>
+     * Lower values are checked first.
+     */
     private final short priority;
 
     public @NotNull String getSerializedTagColor() {
@@ -53,7 +92,7 @@ public final class AZChatBehavior {
         }
 
         public Builder message(@NotNull NotchianChatComponentLike message) {
-            this.message = NotchianChatComponentLike.convertNonNull(message);
+            this.message = NotchianChatComponentLike.unboxNonNull(message);
             return this;
         }
 

@@ -6,6 +6,11 @@ import lombok.NonNull;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Called when a player configuration flag was changed.
+ *
+ * @see AZPlayer#setConfFlag(String, boolean)
+ */
 @Getter
 public class AZPlayerConfFlagChangedEvent extends AZPlayerEvent {
 

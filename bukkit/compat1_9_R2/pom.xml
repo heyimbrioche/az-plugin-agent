@@ -15,6 +15,7 @@
   <artifactId>az-plugin-bukkit-compat1_9_R2</artifactId>
 
   <properties>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
     <scriptus.scmDirectory>../../</scriptus.scmDirectory>
 
     <spigot1_9_R2.version>1.9.4-R0.1-SNAPSHOT</spigot1_9_R2.version>

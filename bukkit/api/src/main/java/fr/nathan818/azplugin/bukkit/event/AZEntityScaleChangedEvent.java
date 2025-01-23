@@ -8,6 +8,11 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Called when an entity scale was changed.
+ *
+ * @see AZEntity#setScale(AZEntityScale)
+ */
 @Getter
 public class AZEntityScaleChangedEvent extends AZEntityEvent {
 

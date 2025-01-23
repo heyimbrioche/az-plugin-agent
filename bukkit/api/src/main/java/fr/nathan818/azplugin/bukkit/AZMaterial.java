@@ -5,6 +5,9 @@ import org.bukkit.Material;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * AZ Launcher custom items and blocks, extending {@link Material}.
+ */
 @UtilityClass
 public class AZMaterial {
 
@@ -24,6 +27,15 @@ public class AZMaterial {
     public static final Material BETTER_BARRIER3 = Material.getMaterial("BETTER_BARRIER3");
     public static final Material STAINED_OBSIDIAN = Material.getMaterial("STAINED_OBSIDIAN");
 
+    /**
+     * Check if the material is an emerald armor.
+     * <p>
+     * Matches: {@link #EMERALD_HELMET}, {@link #EMERALD_CHESTPLATE}, {@link #EMERALD_LEGGINGS}, {@link #EMERALD_BOOTS}
+     *
+     * @param material the material to check
+     * @return true if the material is an emerald armor
+     * @az.async-safe
+     */
     @Contract("null -> false")
     public static boolean isEmeraldArmor(@Nullable Material material) {
         return (
@@ -35,6 +47,16 @@ public class AZMaterial {
         );
     }
 
+    /**
+     * Check if the material is an emerald tool.
+     * <p>
+     * Matches: {@link #EMERALD_SWORD}, {@link #EMERALD_SPADE}, {@link #EMERALD_PICKAXE}, {@link #EMERALD_AXE},
+     * {@link #EMERALD_HOE}
+     *
+     * @param material the material to check
+     * @return true if the material is an emerald tool
+     * @az.async-safe
+     */
     @Contract("null -> false")
     public static boolean isEmeraldTool(@Nullable Material material) {
         return (
@@ -47,6 +69,15 @@ public class AZMaterial {
         );
     }
 
+    /**
+     * Check if the material is a portal.
+     * <p>
+     * Matches: {@link Material#PORTAL}, {@link #COLORED_PORTAL}, {@link #COLORED_PORTAL2}
+     *
+     * @param material the material to check
+     * @return true if the material is a portal
+     * @az.async-safe
+     */
     @Contract("null -> false")
     public static boolean isPortal(@Nullable Material material) {
         return (
@@ -55,11 +86,29 @@ public class AZMaterial {
         );
     }
 
+    /**
+     * Check if the material is a colored portal.
+     * <p>
+     * Matches: {@link #COLORED_PORTAL}, {@link #COLORED_PORTAL2}
+     *
+     * @param material the material to check
+     * @return true if the material is a colored portal
+     * @az.async-safe
+     */
     @Contract("null -> false")
     public static boolean isColoredPortal(@Nullable Material material) {
         return material != null && (material == COLORED_PORTAL || material == COLORED_PORTAL2);
     }
 
+    /**
+     * Check if the material is a barrier.
+     * <p>
+     * Matches: {@link Material#BARRIER}, {@link #BETTER_BARRIER}, {@link #BETTER_BARRIER2}, {@link #BETTER_BARRIER3}
+     *
+     * @param material the material to check
+     * @return true if the material is a barrier
+     * @az.async-safe
+     */
     @Contract("null -> false")
     public static boolean isBarrier(@Nullable Material material) {
         return (
@@ -71,6 +120,15 @@ public class AZMaterial {
         );
     }
 
+    /**
+     * Check if the material is a better barrier.
+     * <p>
+     * Matches: {@link #BETTER_BARRIER}, {@link #BETTER_BARRIER2}, {@link #BETTER_BARRIER3}
+     *
+     * @param material the material to check
+     * @return true if the material is a better barrier
+     * @az.async-safe
+     */
     @Contract("null -> false")
     public static boolean isBetterBarrier(@Nullable Material material) {
         return (
@@ -79,6 +137,15 @@ public class AZMaterial {
         );
     }
 
+    /**
+     * Check if the material is obsidian.
+     * <p>
+     * Matches: {@link Material#OBSIDIAN}, {@link #STAINED_OBSIDIAN}
+     *
+     * @param material the material to check
+     * @return true if the material is obsidian
+     * @az.async-safe
+     */
     @Contract("null -> false")
     public static boolean isObsidian(@Nullable Material material) {
         return material != null && (material == Material.OBSIDIAN || material == STAINED_OBSIDIAN);
