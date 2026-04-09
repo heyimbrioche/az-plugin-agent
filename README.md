@@ -2,8 +2,10 @@
 
 Plugin serveur Minecraft (Spigot 1.8 / 1.9) pour avoir les items specifique au **AZ Client**.
 
+Fork de [**az-examples/az-plugin**](https://github.com/az-examples/az-plugin.git).
+
 ```bash
-git clone https://github.com/heyimbrioche/az-plugin-bukkit.git
+git clone https://github.com/heyimbrioche/az-plugin-agent.git
 ```
 
 ## Build
@@ -18,7 +20,7 @@ Le plugin final (et JAR agent) se trouve dans `bukkit/plugin/target/` sous le no
 
 ## Démarrage : agent obligatoire
 
-Le plugin **ne charge pas** sans l’agent Java : il doit être passé à la JVM **avant** `-jar` (ou avant la classe principale du serveur).
+Le plugin **ne charge pas** sans l’agent Java : il doit être passé à la JVM **avant** `-jar`.
 
 1. Copie `az-plugin-bukkit.jar` dans le dossier `plugins/` du serveur (comme un plugin classique).
 2. Ajoute l’option JVM `-javaagent` en pointant vers **le même fichier** (chemin absolu recommandé).
@@ -39,8 +41,8 @@ Si tu utilises un script `start.sh` / panel d’hébergeur, ajoute la ligne `-ja
 
 ## BungeeCord (optionnel)
 
-Un module patch séparé existe dans `bungee/patch` ; il a son propre `Premain-Class` dans son JAR. Même principe : `-javaagent:chemin/vers/le-jar-bungee-patch.jar` sur la commande qui lance le proxy.
+Même principe : `-javaagent:chemin/vers/le-jar-bungee.jar` sur la commande qui lance le proxy.
 
 ## Remerciements
 
-Merci à **nathan818** pour le travail et les informations publiées sur le dépôt officiel d’exemple [**az-examples/az-plugin**](https://github.com/az-examples/az-plugin.git), qui ont servi de base et de référence pour ce projet.
+Merci à **nathan818** pour le travail et les informations publiées sur le dépôt officiel d’exemple [**az-examples/az-plugin**](https://github.com/az-examples/az-plugin.git).

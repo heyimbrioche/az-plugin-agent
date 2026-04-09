@@ -11,7 +11,7 @@
   <version>dev-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
-  <url>https://github.com/heyimbrioche/az-plugin-bukkit</url>
+  <url>https://github.com/heyimbrioche/az-plugin-agent</url>
 
   <modules>
     <module>common</module>
