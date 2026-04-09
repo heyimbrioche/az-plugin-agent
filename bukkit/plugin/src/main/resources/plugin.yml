@@ -1,0 +1,5 @@
+name: AZPlugin
+main: fr.dialogue.azplugin.bukkit.plugin.AZPlugin
+version: ${describe}
+author: dialogue
+load: STARTUP

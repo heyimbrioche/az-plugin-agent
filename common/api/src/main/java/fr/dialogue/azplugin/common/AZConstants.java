@@ -1,0 +1,124 @@
+package fr.dialogue.azplugin.common;
+
+import lombok.NonNull;
+import lombok.experimental.UtilityClass;
+import pactify.client.api.plsp.packet.client.PLSPPacketConfFlag;
+import pactify.client.api.plsp.packet.client.PLSPPacketConfInt;
+
+@UtilityClass
+public class AZConstants {
+
+    public static final int V1_8 = 47;
+    public static final int V1_9 = 107;
+    public static final int V1_11 = 315;
+
+    /**
+     * Maximum length of a chat component string that can be sent to the AZ Launcher.
+     */
+    public static final int CHAT_COMPONENT_MAX_LENGTH = 65535;
+
+    /**
+     * Asserts that the given {@linkplain AZClient#getConfFlag(String) configuration flag exists}.
+     *
+     * @param key the configuration key to check
+     * @throws IllegalArgumentException if the configuration flag does not exist
+     */
+    public static void assertConfFlagExists(@NonNull String key) {
+        if (!PLSPPacketConfFlag.KNOWN_FLAGS.contains(key)) {
+            throw new IllegalArgumentException("Unknown conf flag: " + key);
+        }
+    }
+
+    /**
+     * Asserts that the given {@linkplain AZClient#getConfInt(String) configuration int} exists.
+     *
+     * @param key the configuration key to check
+     * @throws IllegalArgumentException if the configuration int does not exist
+     */
+    public static void assertConfIntExists(@NonNull String key) {
+        if (!PLSPPacketConfInt.KNOWN_PARAMS.contains(key)) {
+            throw new IllegalArgumentException("Unknown conf int: " + key);
+        }
+    }
+
+    /**
+     * Checks if a configuration flag is supported by the given AZ protocol version.
+     *
+     * @param key               the configuration key to check
+     * @param azProtocolVersion the AZ protocol version
+     * @return true if the flag is supported, false otherwise
+     */
+    public static boolean isConfFlagSupported(@NonNull String key, int azProtocolVersion) {
+        return azProtocolVersion >= 0 && PLSPPacketConfFlag.KNOWN_FLAGS.contains(key);
+    }
+
+    /**
+     * Checks if a configuration int is supported by the given AZ protocol version.
+     *
+     * @param key               the configuration key to check
+     * @param azProtocolVersion the AZ protocol version
+     * @return true if the int is supported, false otherwise
+     */
+    public static boolean isConfIntSupported(@NonNull String key, int azProtocolVersion) {
+        return azProtocolVersion >= 0 && PLSPPacketConfInt.KNOWN_PARAMS.contains(key);
+    }
+
+    /**
+     * Gets the default value of a configuration flag.
+     *
+     * @param key               the configuration key
+     * @param azProtocolVersion the AZ protocol version
+     * @param mcProtocolVersion the Minecraft protocol version
+     * @return the default value
+     */
+    public static boolean getDefaultConfFlag(@NonNull String key, int azProtocolVersion, int mcProtocolVersion) {
+        if (azProtocolVersion >= 0) {
+            switch (key) {
+                case "attack_cooldown":
+                case "hit_indicator":
+                case "pistons_retract_entities":
+                case "player_push":
+                case "sidebar_scores":
+                    return true;
+                default:
+                    return false;
+            }
+        } else {
+            switch (key) {
+                case "hit_and_block":
+                case "old_enchantments":
+                    return mcProtocolVersion < V1_8;
+                case "large_hitbox":
+                case "sword_blocking":
+                    return mcProtocolVersion < V1_9;
+                case "attack_cooldown":
+                case "player_push":
+                    return mcProtocolVersion >= V1_9;
+                case "pistons_retract_entities":
+                case "sidebar_scores":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    }
+
+    /**
+     * Gets the default value of a configuration int.
+     *
+     * @param key               the configuration key
+     * @param azProtocolVersion the AZ protocol version
+     * @param mcProtocolVersion the Minecraft protocol version
+     * @return the default value
+     */
+    public static int getDefaultConfInt(@NonNull String key, int azProtocolVersion, int mcProtocolVersion) {
+        switch (key) {
+            case "chat_message_max_size":
+                return mcProtocolVersion >= V1_11 ? 256 : 100;
+            case "max_build_height":
+                return Integer.MAX_VALUE;
+            default:
+                return 0;
+        }
+    }
+}

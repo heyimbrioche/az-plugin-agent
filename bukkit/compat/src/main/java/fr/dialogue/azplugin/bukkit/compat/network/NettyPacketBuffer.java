@@ -1,0 +1,19 @@
+package fr.dialogue.azplugin.bukkit.compat.network;
+
+import fr.dialogue.azplugin.common.AZClient;
+import fr.dialogue.azplugin.common.network.AZPacketBuffer;
+import io.netty.buffer.ByteBuf;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public interface NettyPacketBuffer extends AZPacketBuffer {
+    static @NotNull AZPacketBuffer create(@Nullable AZClient client) {
+        return new NettyPacketBufferImpl(client);
+    }
+
+    static @NotNull AZPacketBuffer create(@Nullable AZClient client, int initialCapacity) {
+        return new NettyPacketBufferImpl(client, initialCapacity);
+    }
+
+    ByteBuf getNettyBuffer();
+}

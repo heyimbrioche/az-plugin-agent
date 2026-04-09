@@ -1,0 +1,4 @@
+name: AZBungeePatch
+main: fr.dialogue.azplugin.bungee.patch.AZBungeePatchPlugin
+version: ${describe}
+author: dialogue
