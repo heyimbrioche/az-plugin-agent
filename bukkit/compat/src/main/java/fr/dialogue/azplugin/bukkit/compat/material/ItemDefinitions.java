@@ -99,6 +99,26 @@ public class ItemDefinitions {
         .type(ItemDefinition.Simple.builder().build())
         .build();
 
+    /** {@code minecraft:playing_card} (#778); NBT {@code Pattern} string (see {@link fr.dialogue.azplugin.bukkit.AZPlayingCardPatterns}). */
+    public static final ItemDefinition PLAYING_CARD = ItemDefinition.builder()
+        .sinceProtocolVersion(1)
+        .id(778)
+        .bukkitName("PLAYING_CARD")
+        .minecraftName("playing_card")
+        .translationKey("playingCard")
+        .type(ItemDefinition.Simple.builder().build())
+        .build();
+
+    /** {@code minecraft:playing_card_deck} (#779); no tag. */
+    public static final ItemDefinition PLAYING_CARD_DECK = ItemDefinition.builder()
+        .sinceProtocolVersion(1)
+        .id(779)
+        .bukkitName("PLAYING_CARD_DECK")
+        .minecraftName("playing_card_deck")
+        .translationKey("playingCardDeck")
+        .type(ItemDefinition.Simple.builder().build())
+        .build();
+
     public static final List<ItemDefinition> ITEMS = Arrays.asList(
         EMERALD_HELMET,
         EMERALD_CHESTPLATE,
@@ -109,6 +129,8 @@ public class ItemDefinitions {
         EMERALD_PICKAXE,
         EMERALD_AXE,
         EMERALD_HOE,
-        TICKET
+        TICKET,
+        PLAYING_CARD,
+        PLAYING_CARD_DECK
     );
 }

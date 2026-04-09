@@ -28,6 +28,10 @@ class RtClass {
 
     static class Material777 {}
 
+    static class Material778 {}
+
+    static class Material779 {}
+
     static class Material3072 {}
 
     static class Material3073 {}

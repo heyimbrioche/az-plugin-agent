@@ -70,6 +70,20 @@ public class BukkitMaterialDefinitions {
         .durability(0)
         .build();
 
+    public static final BukkitMaterialDefinition PLAYING_CARD = BukkitMaterialDefinition.builder()
+        .name("PLAYING_CARD")
+        .id(778)
+        .stack(64)
+        .durability(0)
+        .build();
+
+    public static final BukkitMaterialDefinition PLAYING_CARD_DECK = BukkitMaterialDefinition.builder()
+        .name("PLAYING_CARD_DECK")
+        .id(779)
+        .stack(64)
+        .durability(0)
+        .build();
+
     public static final BukkitMaterialDefinition COLORED_PORTAL = BukkitMaterialDefinition.builder()
         .name("COLORED_PORTAL")
         .id(3072)
@@ -124,6 +138,8 @@ public class BukkitMaterialDefinitions {
         EMERALD_AXE,
         EMERALD_HOE,
         TICKET,
+        PLAYING_CARD,
+        PLAYING_CARD_DECK,
         COLORED_PORTAL,
         COLORED_PORTAL2,
         BETTER_BARRIER,

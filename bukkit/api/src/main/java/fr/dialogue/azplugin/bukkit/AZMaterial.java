@@ -26,6 +26,12 @@ public class AZMaterial {
     /** Item damage/meta for {@link #TICKET} matching the AZ Launcher ({@code minecraft:ticket} #777). */
     public static final short TICKET_LAUNCHER_DAMAGE = 777;
 
+    /** {@code minecraft:playing_card} (#778); NBT {@code Pattern} via {@link AZPlayingCards}. */
+    public static final Material PLAYING_CARD = Material.getMaterial("PLAYING_CARD");
+
+    /** {@code minecraft:playing_card_deck} (#779). */
+    public static final Material PLAYING_CARD_DECK = Material.getMaterial("PLAYING_CARD_DECK");
+
     public static final Material COLORED_PORTAL = Material.getMaterial("COLORED_PORTAL");
     public static final Material COLORED_PORTAL2 = Material.getMaterial("COLORED_PORTAL2");
     public static final Material BETTER_BARRIER = Material.getMaterial("BETTER_BARRIER");
