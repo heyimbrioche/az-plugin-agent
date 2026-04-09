@@ -1,8 +1,6 @@
 # AZPlugin (Bukkit)
 
-Plugin serveur Minecraft (Spigot 1.8 / 1.9) pour le client **AZ Launcher**.
-
-**Dépôt du projet :** [https://github.com/heyimbrioche/az-plugin-bukkit.git](https://github.com/heyimbrioche/az-plugin-bukkit.git)
+Plugin serveur Minecraft (Spigot 1.8 / 1.9) pour avoir les items specifique au **AZ Client**.
 
 ```bash
 git clone https://github.com/heyimbrioche/az-plugin-bukkit.git
@@ -42,3 +40,7 @@ Si tu utilises un script `start.sh` / panel d’hébergeur, ajoute la ligne `-ja
 ## BungeeCord (optionnel)
 
 Un module patch séparé existe dans `bungee/patch` ; il a son propre `Premain-Class` dans son JAR. Même principe : `-javaagent:chemin/vers/le-jar-bungee-patch.jar` sur la commande qui lance le proxy.
+
+## Remerciements
+
+Merci à **nathan818** pour le travail et les informations publiées sur le dépôt officiel d’exemple [**az-examples/az-plugin**](https://github.com/az-examples/az-plugin.git), qui ont servi de base et de référence pour ce projet.
